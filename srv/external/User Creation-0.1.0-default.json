@@ -1,0 +1,153 @@
+{
+    "components": {
+        "schemas": {
+            "User_Details": {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "firstName",
+                    "lastName",
+                    "email"
+                ]
+            }
+        },
+        "messages": {
+            "Create_User": {
+                "name": "com.mycompany.User.create.v1",
+                "payload": {
+                    "$ref": "#/components/schemas/User_Details"
+                },
+                "description": "This event represents the creation of users.",
+                "schemaFormat": "application/vnd.aai.asyncapi+json;version=2.5.0",
+                "contentType": "application/json"
+            }
+        }
+    },
+    "servers": {
+        "broker-smfs": {
+            "protocol": "smfs",
+            "variables": {
+                "port": {
+                    "enum": [
+                        "55443"
+                    ]
+                }
+            },
+            "protocolVersion": "1.0.0",
+            "url": "tcps://mr-connection-k0s7zc4aj8x.messaging.solace.cloud:55443"
+        },
+        "broker-rests": {
+            "protocol": "rests",
+            "variables": {
+                "port": {
+                    "enum": [
+                        "9443"
+                    ]
+                }
+            },
+            "protocolVersion": "1.1.0",
+            "url": "https://mr-connection-k0s7zc4aj8x.messaging.solace.cloud:9443"
+        },
+        "broker-amqps": {
+            "protocol": "amqps",
+            "variables": {
+                "port": {
+                    "enum": [
+                        "5671"
+                    ]
+                }
+            },
+            "protocolVersion": "1.0.0",
+            "url": "amqps://mr-connection-k0s7zc4aj8x.messaging.solace.cloud:5671"
+        },
+        "broker-secure-mqtt": {
+            "protocol": "secure-mqtt",
+            "variables": {
+                "port": {
+                    "enum": [
+                        "8883"
+                    ]
+                }
+            },
+            "protocolVersion": "3.1.1",
+            "url": "ssl://mr-connection-k0s7zc4aj8x.messaging.solace.cloud:8883"
+        }
+    },
+    "channels": {
+        "myCompany/user/create/v1": {
+            "subscribe": {
+                "bindings": {
+                    "rest": {
+                        "method": "POST",
+                        "type": "request",
+                        "bindingVersion": "0.1.0"
+                    },
+                    "mqtt": {
+                        "qos": 1,
+                        "bindingVersion": "0.1.0"
+                    },
+                    "solace": {
+                        "destinations": [
+                            {
+                                "deliveryMode": "persistent"
+                            }
+                        ],
+                        "bindingVersion": "0.3.0"
+                    }
+                },
+                "operationId": "myCompany/user/create/v1.subscribe",
+                "message": {
+                    "$ref": "#/components/messages/Create_User"
+                }
+            },
+            "publish": {
+                "bindings": {
+                    "rest": {
+                        "method": "POST",
+                        "type": "request",
+                        "bindingVersion": "0.1.0"
+                    },
+                    "mqtt": {
+                        "qos": 1,
+                        "bindingVersion": "0.1.0"
+                    },
+                    "solace": {
+                        "destinations": [
+                            {
+                                "destinationType": "queue",
+                                "queue": {
+                                    "accessType": "exclusive",
+                                    "maxTtl": "5",
+                                    "maxMsgSpoolUsage": "25",
+                                    "topicSubscriptions": []
+                                }
+                            }
+                        ],
+                        "bindingVersion": "0.3.0"
+                    }
+                },
+                "operationId": "myCompany/user/create/v1.publish",
+                "message": {
+                    "$ref": "#/components/messages/Create_User"
+                }
+            }
+        }
+    },
+    "asyncapi": "2.5.0",
+    "info": {
+        "description": "This is the user creation API.",
+        "title": "User Creation",
+        "version": "0.1.0"
+    }
+}

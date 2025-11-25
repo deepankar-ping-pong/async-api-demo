@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "command": "npm run local",
+            "name": "Debug CAP",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}//."
+        }
+    ]
+}
+
