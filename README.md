@@ -1,23 +1,16 @@
 # Getting Started
 
-Welcome to your new project.
+Clone this repository: `gh repo clone deepankar-ping-pong/async-api-demo`.
+Update the `package.json` file and provide the credentials and the endpoints
+of Solace. Enter the following:
+1. Solace hostname.
+2. Solace VPN name.
+3. Solace client user name.
+4. Solace password.
 
-It contains these folders and files, following our recommended project layout:
+## Execute the application
 
-File or Folder | Purpose
----------|----------
-`app/` | content for UI frontends goes here
-`db/` | your domain models and data go here
-`srv/` | your service models and code go here
-`package.json` | project metadata and configuration
-`readme.md` | this getting started guide
-
-
-## Next Steps
-
-- Open a new terminal and run `cds watch`
-- (in VS Code simply choose _**Terminal** > Run Task > cds watch_)
-- Start adding content, for example, a [db/schema.cds](db/schema.cds).
+- Open a new terminal and run `npm run local`
 
 
 ## Learn More
