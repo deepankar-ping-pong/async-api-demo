@@ -8,6 +8,8 @@ of Solace. Enter the following:
 3. Solace client user name.
 4. Solace password.
 
+Run `npm i -all`.
+
 ## Execute the application
 
 - Open a new terminal and run `npm run local`
